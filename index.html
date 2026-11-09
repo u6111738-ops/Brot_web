@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BROT · Un univers Yayoi Kusama</title>
+<meta name="description" content="Web interactiva on cada sala fa viure un concepte de Yayoi Kusama a través de gestos repetits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Hanken+Grotesk:ital,wght@0,400;0,600;1,400&family=Martian+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="trace" aria-hidden="true"></canvas>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="hud" aria-label="Comptador de gestos"><span class="pip" id="pip"></span><b id="gcount">00000</b><small>gestos</small></div>
+<nav class="dots" aria-label="Sales">
+  <a href="#portada" data-l="Portada"></a><a href="#inici" data-l="La pregunta"></a><a href="#repeticio" data-l="Repetició"></a><a href="#acumulacio" data-l="Acumulació"></a><a href="#infinit" data-l="Infinit"></a><a href="#jo" data-l="Dissolució del jo"></a><a href="#ritual" data-l="Ritual"></a><a href="#cicle" data-l="Cicle vital"></a><a href="#rastre" data-l="El teu rastre"></a>
+</nav>
+<div class="echo" id="echo" aria-hidden="true"></div>
+
+<!-- PORTADA -->
+<section class="cover" id="portada" aria-label="Portada">
+  <canvas id="c-cover" aria-hidden="true"></canvas>
+  <div class="in">
+    <div class="top"><span>Un univers Yayoi Kusama</span><span>7 sales · 1 gest</span></div>
+    <h1 class="wordmark" aria-label="Brot">BR<span class="o" aria-hidden="true"></span>T</h1>
+    <div class="sub">
+      <div>
+        <p>Una web per entrar dins la repetició: aquí els conceptes de Kusama no s'expliquen, es fan amb les mans.</p>
+      </div>
+      <a class="enter" href="#inici">Entra<span>↓ comença</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- HERO -->
+<section class="hero r-hero" id="inici">
+  <canvas id="c-hero" aria-label="Un punt que es duplica cada cop que hi cliques"></canvas>
+  <div class="copy">
+    <span class="eyebrow">Una web sobre el pensament visual de Yayoi Kusama</span>
+    <h1>Què passa quan un gest es <span class="rep">repeteix</span>?</h1>
+    <p class="lede">Un punt no és res. Repeteix-lo, i es converteix en patró, després en espai, i al final ja no saps on acabes tu. Aquí no hi ha res per mirar de lluny: cada sala només funciona si hi participes.</p>
+  </div>
+  <div class="hint">Clica el fons per repetir el gest<br>punts: <b id="hero-n">1</b> · repeticions: <b id="hero-r">0</b></div>
+</section>
+
+<!-- REPETICIÓ -->
+<section class="room r-net" id="repeticio">
+  <div class="txt">
+    <span class="eyebrow">Repetició</span>
+    <h2 class="echoed">La xarxa que no s'acaba<span class="ghost" aria-hidden="true">La xarxa que no s'acaba</span><span class="ghost" aria-hidden="true">La xarxa que no s'acaba</span></h2>
+    <p>Kusama pintava el mateix petit arc milers de vegades, dia i nit, fins que la tela desapareixia sota una xarxa. Cap arc és important. El que importa és que no s'aturen.</p>
+    <p class="do"><strong>Fes:</strong> arrossega dins el llenç per teixir llaçades. O deixa que la mà automàtica pinti fila rere fila, i mira com cada passada nova cobreix l'anterior.</p>
+    <div class="ctrls">
+      <button id="net-auto" class="solid"><span>Mà automàtica</span></button>
+      <button id="net-clear"><span>Tela nova</span></button>
+      <label class="rng" for="net-speed">ritme <input id="net-speed" type="range" min="1" max="40" value="8"></label>
+    </div>
+    <p class="ref">Referència: les <em>Infinity Nets</em>, pintades a Nova York a finals dels anys 50. Teles de diversos metres cobertes amb una sola acció repetida.</p>
+  </div>
+  <div class="stage"><canvas id="c-net" aria-label="Llenç on es teixeix una xarxa de llaçades"></canvas><span class="overlay-tag stat" id="net-n">0 llaçades</span></div>
+</section>
+
+<!-- ACUMULACIÓ -->
+<section class="room r-acc" id="acumulacio">
+  <div class="txt">
+    <span class="eyebrow">Acumulació</span>
+    <h2>Mil unitats fan un cos</h2>
+    <p>Una peça tova sola és ridícula. Centenars de peces enganxades a una cadira o a una barca fan que l'objecte deixi de ser un objecte i es torni un organisme que creix.</p>
+    <p class="do"><strong>Fes:</strong> clica o mantén premut per afegir unitats. Cadascuna busca el centre i empeny les altres. Ningú no dibuixa la forma final: apareix sola.</p>
+    <div class="ctrls">
+      <button id="acc-clear"><span>Buida</span></button>
+      <button id="acc-shake"><span>Sacseja</span></button>
+    </div>
+    <p class="ref">Referència: les escultures <em>Accumulation</em> (des de 1962), objectes quotidians coberts de protuberàncies cosides i farcides.</p>
+  </div>
+  <div class="stage"><canvas id="c-acc" aria-label="Unitats que s'acumulen i formen un cos"></canvas><span class="overlay-tag stat" id="acc-n">0 unitats</span></div>
+</section>
+
+<!-- INFINIT / IMMERSIÓ -->
+<section class="room r-room" id="infinit">
+  <div class="txt">
+    <span class="eyebrow">Infinit · Immersió</span>
+    <h2>Una habitació sense parets</h2>
+    <p>Posa uns quants llums en una caixa de miralls i deixen de ser uns quants: són infinits. L'espectador ja no mira l'obra des de fora. Hi és a dins, multiplicat amb ella.</p>
+    <p class="do"><strong>Fes:</strong> mou el cursor (o el dit) per girar el cap dins l'habitació. Clica per canviar com respiren els llums. Entra a pantalla completa per perdre les vores.</p>
+    <div class="ctrls">
+      <button id="room-full" class="solid"><span>Entra a l'habitació</span></button>
+      <button id="room-mode"><span>Canvia la llum</span></button>
+    </div>
+    <p class="ref">Referència: <em>Infinity Mirror Room – Phalli's Field</em> (1965), la primera de les seves sales de miralls. Aquí només hi ha 36 llums; la resta són reflexos.</p>
+  </div>
+  <div class="stage"><canvas id="c-room" aria-label="Sala infinita de llums reflectits"></canvas><span class="overlay-tag stat" id="room-n">36 llums · ∞ reflexos</span></div>
+</section>
+
+<!-- DISSOLUCIÓ DEL JO -->
+<section class="room r-self" id="jo">
+  <div class="txt">
+    <span class="eyebrow">Dissolució del jo</span>
+    <h2>Esborrar-se amb punts</h2>
+    <p>Kusama parlava d'auto-obliteració: cobrir el propi cos, la sala i els altres amb el mateix patró fins que la diferència entre tu i el món desapareix.</p>
+    <p class="do"><strong>Fes:</strong> escriu el teu nom. Després passa-hi per sobre: cada moviment hi afegeix punts. Quan el patró ho cobreix tot, el nom ja no hi és, encara que mai no l'hem esborrat.</p>
+    <div class="namebox">
+      <label class="stat" for="self-name" style="align-self:center">nom</label>
+      <input id="self-name" type="text" maxlength="12" value="JO" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="ctrls">
+      <label class="rng" for="self-obl">obliteració <input id="self-obl" type="range" min="0" max="100" value="12"></label>
+      <button id="self-reset"><span>Torna a ser tu</span></button>
+    </div>
+    <p class="ref">Referència: els <em>happenings</em> de Nova York i la pel·lícula <em>Kusama's Self-Obliteration</em> (1967), amb cossos, cavalls i aigua coberts de punts.</p>
+  </div>
+  <div class="stage"><canvas id="c-self" aria-label="El teu nom fet de punts que es dissol en un patró"></canvas><span class="overlay-tag stat" id="self-n">jo: visible</span></div>
+</section>
+
+<!-- RITUAL -->
+<section class="room r-rit" id="ritual">
+  <div class="txt">
+    <span class="eyebrow">Obsessió · Ritual</span>
+    <h2>Repetir per calmar-se</h2>
+    <p>Per a Kusama, repetir no era un estil: era una manera de sobreviure a les al·lucinacions. Cada dia, a la mateixa hora, el mateix gest. La repetició es torna meditació.</p>
+    <p class="do"><strong>Fes:</strong> toca el botó (o prem l'espai) per afegir un so al cercle. El cercle dura sis segons i ho repeteix tot, sempre. Escolta com el teu ritme deixa de ser teu.</p>
+    <div class="ctrls">
+      <button class="tapbtn" id="rit-tap" aria-label="Afegeix un so al ritual">toca</button>
+      <button id="rit-clear"><span>Silenci</span></button>
+    </div>
+    <p class="ref">Referència: des de 1977 viu per decisió pròpia en un hospital psiquiàtric de Tòquio i cada dia camina fins al seu estudi, a l'altra banda del carrer, per pintar.</p>
+  </div>
+  <div class="stage"><canvas id="c-rit" aria-label="Rellotge circular del ritual sonor"></canvas><span class="overlay-tag stat" id="rit-n">so apagat · toca per començar</span></div>
+</section>
+
+<!-- CICLE VITAL -->
+<section class="room r-germ" id="cicle">
+  <div class="txt">
+    <span class="eyebrow">Cicle vital · Naturalesa</span>
+    <h2>Brotar, florir, caure</h2>
+    <p>Abans de les xarxes, de petita, Kusama dibuixava les flors i les llavors del viver de la seva família a Matsumoto. La proliferació ve d'aquí: tot el que creix, es multiplica i torna a terra.</p>
+    <p class="do"><strong>Fes:</strong> clica per plantar una llavor. Creix, es ramifica, floreix i deixa caure llavors noves que tornen a brotar mentre la planta vella es desfà. Després pots deixar-ho sol.</p>
+    <div class="ctrls">
+      <button id="germ-rain" class="solid"><span>Pluja de llavors</span></button>
+      <button id="germ-clear"><span>Hivern</span></button>
+    </div>
+    <p class="ref">Referència: la sèrie <em>My Eternal Soul</em> (des de 2009), centenars de quadres plens d'ulls, cèl·lules i formes que semblen germinar.</p>
+  </div>
+  <div class="stage"><canvas id="c-germ" aria-label="Jardí que creix, floreix i es descompon"></canvas><span class="overlay-tag stat" id="germ-n">0 generacions</span></div>
+</section>
+
+<!-- FINAL -->
+<section class="end" id="rastre">
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow" style="color:var(--chrome)">El teu rastre</span>
+      <div class="big" id="end-n">0</div>
+      <p>Aquests són els gestos que has repetit en aquesta visita. Mira la pantalla: cada un ha deixat un punt a sobre de tota la web. No els hem dibuixat nosaltres. Els has posat tu, un per un, i ara ja no es pot llegir la pàgina sense ells.</p>
+      <p>Aquesta és la nostra resposta a la pregunta: <b>quan un gest es repeteix prou, deixa de ser un gest i es converteix en el lloc on ets.</b></p>
+      <div class="ctrls"><button id="trace-clear"><span>Esborra el rastre</span></button><a class="btn" href="#inici" style="color:var(--bone);text-decoration:none">Torna a començar</a></div>
+    </div>
+    <div class="col">
+      <span class="eyebrow" style="color:var(--chrome)">Kusama en sis moments</span>
+      <ol class="timeline">
+        <li><span class="y">1929</span><span class="t">Neix a <b>Matsumoto</b> (Japó), en una família que té un viver de plantes i llavors.</span></li>
+        <li><span class="y">1958</span><span class="t">Arriba a <b>Nova York</b> i comença les <b>Infinity Nets</b>.</span></li>
+        <li><span class="y">1962</span><span class="t">Primeres escultures <b>Accumulation</b>, amb protuberàncies de tela farcida.</span></li>
+        <li><span class="y">1965</span><span class="t">Primera <b>Infinity Mirror Room</b>: l'obra passa de la tela a l'espai.</span></li>
+        <li><span class="y">1967</span><span class="t"><b>Self-Obliteration</b>: performances i pel·lícula on el cos es dissol en el patró.</span></li>
+        <li><span class="y">1977</span><span class="t">Torna a Tòquio i s'instal·la a l'hospital, prop del seu estudi, on encara treballa cada dia.</span></li>
+      </ol>
+      <p class="fine" hidden>BROT · Lliurable 2 · Creació col·lectiva inspirada en el documental <i>Kusama: Infinity</i> (Heather Lenz, 2018). Totes les formes d'aquesta web es generen amb codi a partir dels conceptes; no hi reproduïm cap obra de l'artista.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="marquee" aria-hidden="true"><div class="track">
+    <span>REPETIR <i>●</i> ACUMULAR <i>●</i> INFINIT <i>●</i> DISSOLDRE'S <i>●</i> RITUAL <i>●</i> BROTAR <i>●</i></span><span>REPETIR <i>●</i> ACUMULAR <i>●</i> INFINIT <i>●</i> DISSOLDRE'S <i>●</i> RITUAL <i>●</i> BROTAR <i>●</i></span>
+    <span>REPETIR <i>●</i> ACUMULAR <i>●</i> INFINIT <i>●</i> DISSOLDRE'S <i>●</i> RITUAL <i>●</i> BROTAR <i>●</i></span><span>REPETIR <i>●</i> ACUMULAR <i>●</i> INFINIT <i>●</i> DISSOLDRE'S <i>●</i> RITUAL <i>●</i> BROTAR <i>●</i></span>
+  </div></div>
+  <div class="outro">
+    <p class="say">Has arribat al final.<br><span>El gest continua.</span></p>
+    <p class="note">BROT · creació col·lectiva a partir del documental <i>Kusama: Infinity</i> (Heather Lenz, 2018). Les formes es generen amb codi a partir dels conceptes; no reproduïm cap obra de l'artista.</p>
+  </div>
+  <div class="legal"><span>© 2026 Grup BROT</span><a href="#portada" style="color:inherit">Torna a dalt ↑</a></div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
